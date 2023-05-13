@@ -77,7 +77,7 @@ public class ProdutosDAO {
             st.setInt(1, idProd);
             st.execute();
             
-            JOptionPane.showMessageDialog(null, "Filme atualizado com sucesso");
+            JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso");
         } catch (Exception e) {
             /* tratando erro caso ele ocorra**/
             JOptionPane.showMessageDialog(null, "Erro ao editar o produto, tente novamente");
