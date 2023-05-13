@@ -83,6 +83,29 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null, "Erro ao editar o produto, tente novamente");
             System.out.println("Erro ao editar produto: " + e.getMessage());
         }
-        
+    }
+    
+    public List<ProdutosDTO> listarProdutosVendidos(){
+        String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            List<ProdutosDTO> listaProdutos = new ArrayList<>();
+
+            while (rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(rs.getInt("valor"));
+                
+                listaProdutos.add(produto);
+            }
+            return listaProdutos;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Nenhum produto encontrado");
+            return null;
+        }
     }
 }
