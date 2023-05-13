@@ -46,7 +46,7 @@ public class ProdutosDAO {
     }
 
     public List<ProdutosDTO> listarProdutos() {
-                String sql = "SELECT * FROM produtos";
+        String sql = "SELECT * FROM produtos";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -69,5 +69,20 @@ public class ProdutosDAO {
             return null;
         }
     }
-
+    
+    public void venderProduto(int idProd){
+        String sql = "UPDATE produtos SET status = 'Vendido' WHERE id=?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            st.setInt(1, idProd);
+            st.execute();
+            
+            JOptionPane.showMessageDialog(null, "Filme atualizado com sucesso");
+        } catch (Exception e) {
+            /* tratando erro caso ele ocorra**/
+            JOptionPane.showMessageDialog(null, "Erro ao editar o produto, tente novamente");
+            System.out.println("Erro ao editar produto: " + e.getMessage());
+        }
+        
+    }
 }
